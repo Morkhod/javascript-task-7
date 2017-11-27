@@ -34,7 +34,8 @@ function runParallel(jobs, parallelNum, timeout = 1000) {
     function beginJob(jobNumber, resolve) {
         const onFulfilledRejected = jobResult => finishJob(jobResult, jobNumber, resolve);
         getJobWithTimeout(jobNumber)
-            .then(onFulfilledRejected, onFulfilledRejected);
+            .then(onFulfilledRejected)
+            .catch(onFulfilledRejected);
     }
 
     function finishJob(jobResult, jobNumber, resolve) {
